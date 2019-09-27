@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ChecklistManagement.Models
 {
@@ -10,6 +7,8 @@ namespace ChecklistManagement.Models
         public string Id { get; set; }
         public string FormId { get; set; }
         public string FunctionalLocation { get; set; }
+        public int Version { get; set; }
+        public int Sequence { get; set; }
         public string Content { get; set; }
         public string Remarks { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -24,6 +23,8 @@ namespace ChecklistManagement.Models
         public string Id { get; set; }
         public string FormId { get; set; }
         public string FunctionalLocation { get; set; }
+        public int Version { get; set; }
+        public int Sequence { get; set; }
         public string Content { get; set; }
         public string Remarks { get; set; }
         public DateTime CreatedDate { get; set; }
