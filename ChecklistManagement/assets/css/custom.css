@@ -1,0 +1,40 @@
+/* here you can put your own css to customize and override the theme */
+
+.swim-logo {
+    float: left;
+    margin-top: 5px;
+    font-size: 17px;
+}
+
+.iframe {
+    width: 100%;
+    min-height: 510px;
+    border: 0px;
+}
+
+.iframe-div {
+    background-image: url('../img/loading-spinner-blue.gif');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+#busy-overlay, .busy-overlay {
+    background-color: whitesmoke;
+    opacity: 0.8;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 20055;
+    height: 100%;
+    width: 100%;
+    background-image: url('../img/ajax-loading.gif');
+    overflow: hidden;
+    background-position: 50% 25%;
+    background-repeat: no-repeat;
+}
+
+@media print {
+    #approvalsection{
+        display: block;
+    }
+}

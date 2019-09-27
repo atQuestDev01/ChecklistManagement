@@ -1,0 +1,56 @@
+﻿
+.dashboard-stat .details .number {
+    font-size: 30px;
+}
+
+.dashboard-stat .visual > i {
+    color: white;
+    opacity: 0.1;
+    filter: alpha(opacity=10);
+}
+
+.dashboard-stat .visual > i {
+    margin-left: -35px;
+    font-size: 110px;
+    line-height: 110px;
+}
+
+@media (min-width: 893px) and (max-width: 990px) {
+    .dashboard-stat{
+        width:19%;
+        float:left;
+        margin: 0 0.5%;
+        position:relative;
+    }
+
+    .graph{
+        width: 50%;
+    }
+}
+
+@media (min-width: 691px) and (max-width: 892px){
+    .dashboard-stat{
+        width:32%;
+        float:left;
+        margin: 0 0.5%;
+        position:relative;
+    }
+    .graph{
+        width: 100%;
+    }
+}
+
+.spinner{
+    padding-top: 12%;
+}
+
+.spinner img{
+    padding-left:33%;
+}
+
+.img-spanner{
+    margin-top: 47px;
+    position: absolute;
+    text-align: center;
+    margin-left: 38%;
+}

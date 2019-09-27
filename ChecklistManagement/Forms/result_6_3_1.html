@@ -1,0 +1,118 @@
+
+<script language="javascript">
+	var jsonObj = {};
+    var jsonText = "";
+	
+	
+		function SetContent()
+	{
+		jsonObj = JSON.parse(document.getElementById("data").value);
+
+		for (var key in jsonObj)
+		{
+			var element = document.getElementById(key);
+
+			switch (element.type)
+			{
+				case "radio":
+					var radioElems = document.getElementsByName(key);
+					for (var i = 0; i < radioElems.length; i++)
+					{
+						if (radioElems[i].value == jsonObj[key])
+						{
+							radioElems[i].checked = true;
+							break;
+						}
+					}
+					break;
+
+				case "select-one":
+					var options = element.options;
+					for (var i = 0; i < options.length; i++)
+					{
+						if (options[i].value == jsonObj[key])
+						{
+							options[i].selected = true;
+							break;
+						}
+					}
+
+					break;
+
+				default:
+					element.value = jsonObj.key;
+			}
+		}
+	}
+
+	function GetContent()
+    {
+        var currentElem = document.getElementById("formTable");
+        var elements = currentElem.querySelectorAll("input, select, textarea");
+
+		for (var i = 0; i < elements.length; ++i) {
+            var element = elements[i];
+            var name = element.name;
+            var value = element.value;
+            var type = element.type;
+            var checked = element.checked;
+
+            if (name) {
+                if (type == "radio" && checked) {
+                    jsonObj[name] = value;
+                }
+                if (type != "radio") {
+                    jsonObj[name] = value;
+                }
+            }
+        }
+
+        jsonText = JSON.stringify(jsonObj);
+
+		document.getElementById("data").value = jsonText;
+    }
+
+    function PostContent() {
+        if (document.location.href.indexOf("=") > -1) {
+            var formId = document.location.href.substring(document.location.href.indexOf("=") + 1);
+            document.location.href = document.location.origin + "/form/saveResult?formid=" + formId + "&data=" + document.getElementById("data").value;
+        }
+    }
+
+
+</script>
+
+<table id="formTable">
+<tr>
+<td colspan="1" style="font-size:11px;vertical-align:Center;">Ikatan buswork tiada kesan 'hot spot'</td><td colspan="1" style="font-size:11px;vertical-align:Center;">
+<input type="radio" name="HotSpot" id="HotSpot" value="yes">YES
+<br>
+<input type="radio" name="HotSpot" id="HotSpot" value="no">NO
+<br>
+<input type="radio" name="HotSpot" id="HotSpot" value="na">N/A
+<br>
+</td>
+</tr>
+<tr>
+<td colspan="1" style="font-size:11px;vertical-align:Center;">Copper potential grading bus' pada grading electrod paip penyejuk dalam kedaan baik dan kemas</td><td colspan="1" style="font-size:11px;vertical-align:Center;">
+<input type="radio" name="CopperPotential" id="CopperPotential" value="yes">YES
+<br>
+<input type="radio" name="CopperPotential" id="CopperPotential" value="no">NO
+<br>
+<input type="radio" name="CopperPotential" id="CopperPotential" value="na">N/A
+<br>
+</td>
+</tr>
+
+</table>
+
+
+
+<p><input type="button" onClick="GetContent();" value="Get Content" /></p>
+<p>
+    <textarea id="data" name="data" cols="80"></textarea>
+</p>
+<p><input type="button" onClick="SetContent();" value="Set Content" /></p>
+<p><input type="button" onClick="PostContent();" value="Post Content" /></p>
+
+
