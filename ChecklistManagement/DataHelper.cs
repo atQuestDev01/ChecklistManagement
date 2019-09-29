@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -13,7 +14,10 @@ namespace ChecklistManagement
             if (data != null)
             {
                 //Save data to DB
-                return true;
+                using (DataAccessComponent dac = new DataAccessComponent())
+                { 
+                    return dac.CreateContent(data);
+                }
             } 
             else
             {
@@ -25,7 +29,10 @@ namespace ChecklistManagement
             if (data != null)
             {
                 //Update data to DB
-                return true;
+                using (DataAccessComponent dac = new DataAccessComponent())
+                {
+                    return dac.UpdateContent(data);
+                }
             }
             else
             {
@@ -34,14 +41,12 @@ namespace ChecklistManagement
         }
         public List<Models.Data> Retrieve(string dataId = "")
         {
-            if (!string.IsNullOrEmpty(dataId))
+            //Return data from DB
+            using (DataAccessComponent dac = new DataAccessComponent())
             {
-                //Return data from DB
-                return new List<Models.Data>();
-            }
-            else
-            {
-                return null;
+                DataTable dtResult = dac.RetrieveContent(dataId);
+
+                return DataTableToList<Models.Data>(dtResult);
             }
         }
         public bool Delete(string dataId)
@@ -49,11 +54,49 @@ namespace ChecklistManagement
             if (!string.IsNullOrEmpty(dataId))
             {
                 //Delete from DB
-                return true;
+                using (DataAccessComponent dac = new DataAccessComponent())
+                {
+                    return dac.DeleteContent(dataId);
+                }
             }
             else
             {
                 return false;
+            }
+        }
+
+
+        private List<T> DataTableToList<T>(DataTable dtValue) where T : class, new()
+        {
+            try
+            {
+                List<T> returnList = new List<T>();
+
+                foreach (var currentRow in dtValue.AsEnumerable())
+                {
+                    T obj = new T();
+
+                    foreach (var prop in obj.GetType().GetProperties())
+                    {
+                        try
+                        {
+                            System.Reflection.PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
+                            propertyInfo.SetValue(obj, Convert.ChangeType(currentRow[prop.Name], propertyInfo.PropertyType), null);
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
+
+                    returnList.Add(obj);
+                }
+
+                return returnList;
+            }
+            catch
+            {
+                return null;
             }
         }
     }

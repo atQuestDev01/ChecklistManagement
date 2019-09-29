@@ -1,0 +1,57 @@
+﻿@Model List<Models.Data>
+    @{
+        ViewBag.Title = "Test";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <script language="javascript">
+        function redirect(action, id) {
+            if (action.length > 0) {
+                if (id.length > 0) {
+                    document.location.href = document.location.origin + "/test?activity=" + action + "&dataid=" + id;
+                }
+                else {
+                    document.location.href = document.location.origin + "/test?activity=" + action;
+                }
+            }
+        }
+    </script>
+
+    <div style="border: 1px solid black;">
+        Action: @ViewBag.Action
+        <br />
+        ActionResult: @ViewBag.ActionResult
+
+        @if (Model != null)
+        {
+            foreach (ChecklistManagement.Models.Data currentData in Model)
+            {
+                <p>@currentData.Id</p>
+            }
+        }
+    </div>
+
+    <h2>Test Create</h2>
+    <hr />
+    <input type="button" value="Create" onclick="javascript: redirect('create', '');" />
+    <hr />
+
+    <h2>Test Retrieve</h2>
+    <hr />
+    <input type="text" value="" id="dataid" name="dataid" />
+    <br />
+    <input type="button" value="Retrieve" onclick="javascript: redirect('retrieve', document.getElementById('dataid').value);" />
+    <hr />
+
+    <h2>Test Update</h2>
+    <hr />
+    <input type="button" value="Uodate" onclick="javascript: redirect('update');" />
+    <hr />
+
+    <h2>Test Delete</h2>
+    <hr />
+    <input type="text" value="" id="dataid" name="dataid" />
+    <br />
+    <input type="button" value="Retrieve" onclick="javascript: redirect('delete', document.getElementById('dataid').value);" />
+    <hr />
+
